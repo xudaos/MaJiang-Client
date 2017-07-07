@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>抹茶控，福利来袭</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <style>
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      b, i, u, center,
+      dl, dt, dd, ol, ul, li,
+      fieldset, form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td,
+      article, aside, canvas, details, embed, fieldset,
+      figure, figcaption, footer, header, hgroup,
+      menu, nav, output, ruby, section, summary,
+      time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        vertical-align: baseline;
+      }
+      html {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      body, html {
+        width: 100%;
+        height: 100%;
+      }
+      * {
+	      -webkit-box-sizing: border-box;
+	      -moz-box-sizing: border-box;
+	      box-sizing: border-box;
+      }
+
+      html {
+	      -ms-touch-action: none;
+      }
+
+      body {
+	      overflow: hidden;
+      }
+
+      .icon {
+        width: 1em; height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
+      img {
+        display: block;
+      }
+      #app {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <script>
+      function adapt(designWidth, rem2px){
+        var d = window.document.createElement('div');
+        d.style.width = '1rem';
+        d.style.display = "none";
+        var head = window.document.getElementsByTagName('head')[0];
+        head.appendChild(d);
+        var defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'));
+        //d.remove();
+        document.documentElement.style.fontSize = window.innerWidth / designWidth * rem2px / defaultFontSize * 100 + '%';
+        var st = document.createElement('style');
+        var portrait = "@media screen and (min-width: "+window.innerWidth+"px) {html{font-size:"+((window.innerWidth/(designWidth/rem2px)/defaultFontSize)*100)+"%;}}";
+        var landscape = "@media screen and (min-width: "+window.innerHeight+"px) {html{font-size:"+((window.innerHeight/(designWidth/rem2px)/defaultFontSize)*100)+"%;}}";
+        st.innerHTML = portrait + landscape;
+        head.appendChild(st);
+        return defaultFontSize;
+      }
+      adapt(640, 100);
+      function isPassive () {
+        var supportsPassiveOption = false
+        try {
+          document.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+            get: function () {
+              supportsPassiveOption = true
+            }
+          }))
+        } catch (e) {}
+        return supportsPassiveOption
+      }
+      document.addEventListener('touchmove', function (e) { e.preventDefault() }, isPassive() ? {
+        capture: false,
+        passive: false
+      } : false)
+      function urlParam(name) {
+   	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+   	    var r = window.location.search.substr(1).match(reg);
+   	    if (r!=null) return (r[2]); return null;
+      }
+      Date.prototype.format = function(f){
+        var o ={
+          "M+" : this.getMonth()+1, //month
+          "d+" : this.getDate(),    //day
+          "h+" : this.getHours(),   //hour
+          "m+" : this.getMinutes(), //minute
+          "s+" : this.getSeconds(), //second
+          "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+          "S" : this.getMilliseconds(), //millisecond,
+          "w" : "日一二三四五六".charAt(this.getDay()) //week
+        }
+        if(/(y+)/.test(f))f=f.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        for(var k in o)
+          if(new RegExp("("+ k +")").test(f))f = f.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));return f
+      }
+      //判断是否是微信中打开
+      function is_weixin(){  
+        var ua = navigator.userAgent.toLowerCase();  
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+          return true; 
+        } else {
+          return false;  
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      const screenHeight = document.getElementById('app').clientHeight;
+      const screenWidth = document.getElementById('app').screenWidth;
+    </script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/iconfont.js"></script>
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
